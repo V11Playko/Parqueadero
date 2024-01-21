@@ -18,9 +18,9 @@ Para instalar y configurar la aplicación en un entorno local, sigue estos pasos
 4. Crea una base de datos PostgreSQL con el nombre "usuarios-service"
 5. Configura las variables de entorno necesarias para la base de datos.
 6. Ejecuta la aplicación.
-7. Consulta la documentación de la API para obtener más detalles sobre los endpoints disponibles
-   en `http://localhost:8091/swagger-ui/index.html#/`
-8. Tambien puedes ver y exportar la [colección de postman.](docs/Parqueadero-Reto.postman_collection.json)
+7. Consulta la documentación de la API de User-Service para obtener más detalles sobre los endpoints disponibles en `http://localhost:8091/swagger-ui/index.html#/`.
+8. Consulta la documentación de la API de Parking-Service para obtener más detalles sobre los endpoints disponibles en `http://localhost:8092/swagger-ui/index.html#`.
+9. Tambien puedes ver y exportar la [colección de postman.](docs/Parqueadero-Reto.postman_collection.json)
 
 ## Licencia ##
 
