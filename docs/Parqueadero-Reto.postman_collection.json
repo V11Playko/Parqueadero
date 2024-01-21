@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "8c006927-91b7-45e3-9a2b-34bf9253d28a",
+		"name": "Parqueadero-Reto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17721570"
+	},
+	"item": [
+		{
+			"name": "User-Service",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"admin@mail.com\",\r\n  \"password\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/users/v1/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"users",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Save Partner",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Heinner\",\r\n  \"surname\": \"Vega\",\r\n  \"phoneNumber\": \"+57 3137825323\",\r\n  \"email\": \"vega@gmail.com\",\r\n  \"password\": \"Vega\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8091/users/v1/admin/save-partner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"users",
+								"v1",
+								"admin",
+								"save-partner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By Email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8091/users/v1/admin/user-by-email?email=vega@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"users",
+								"v1",
+								"admin",
+								"user-by-email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "vega@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
