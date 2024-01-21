@@ -1,0 +1,25 @@
+#Application Configuration
+server:
+  port: 8092
+
+spring:
+  application:
+    name: parqueadero-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/parqueadero-service
+    username: ${USER}
+    password: ${PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+appDescription: "Parking Service - Parking"
+appVersion: "1.0.0"
