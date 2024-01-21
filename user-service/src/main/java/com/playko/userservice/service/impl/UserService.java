@@ -4,6 +4,7 @@ import com.playko.userservice.entities.User;
 import com.playko.userservice.repository.IUserRepository;
 import com.playko.userservice.service.IAuthPasswordEncoderPort;
 import com.playko.userservice.service.IUserService;
+import com.playko.userservice.service.exceptions.NoDataFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,12 @@ public class UserService implements IUserService {
      * */
     @Override
     public Optional<User> getUserByEmail(String email) {
-        return Optional.ofNullable(userRepository.findByEmail(email));
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
+
+        if (userOptional.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        return userOptional;
     }
 }
