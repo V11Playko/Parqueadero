@@ -26,4 +26,5 @@ public class Constants {
     public static final String PARKING_FULL_MESSAGE = "El estacionamiento esta en su capacidad maxima";
     public static final String PLATE_NOT_REGISTERED_MESSAGE = "No se puede Registrar Salida, no existe la placa en el parqueadero";
     public static final String REGISTERED_OUTPUT_MESSAGE = "Salida registrada";
+    public static final String PARKING_NOT_FOUND = "No se encontró el parqueadero con el ID especificado.";
 }
