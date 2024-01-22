@@ -15,6 +15,7 @@ import feign.FeignException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -124,5 +125,23 @@ public class ParkingService implements IParkingService {
         getParking(id).orElseThrow(NoDataFoundException::new);
 
         parkingRepository.deleteById(id);
+    }
+
+    /**
+     * Obtiene la lista de parqueaderos asociados a un socio.
+     *
+     * @param emailAssignedPartner El correo electrónico del socio.
+     * @return Lista de parqueaderos asociados al socio.
+     * @throws UserIsNotPartnerException - Si el usuario no tiene el rol de socio.
+     * @throws NoDataFoundException - Si no se encuentra el usuario asociado al correo electrónico.
+     */
+    @Override
+    public List<Parking> getAssociatedParkings(String emailAssignedPartner) {
+        Optional<User> user = Optional.ofNullable
+                (userClient.getUser(emailAssignedPartner).orElseThrow(NoDataFoundException::new));
+
+        if (user.isPresent() && user.get().getRole().getName().equals("ROLE_PARTNER")) {
+            return parkingRepository.findByEmailAssignedPartner(emailAssignedPartner);
+        } else throw new UserIsNotPartnerException();
     }
 }
