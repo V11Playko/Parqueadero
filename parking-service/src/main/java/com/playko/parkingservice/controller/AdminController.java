@@ -2,12 +2,15 @@ package com.playko.parkingservice.controller;
 
 import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
+import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.service.IParkingService;
+import com.playko.parkingservice.service.IRegistryEntryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,9 +33,11 @@ import java.util.Optional;
 @RequestMapping("/admin/v1")
 public class AdminController {
     private final IParkingService parkingService;
+    private final IRegistryEntryService registryEntryService;
 
-    public AdminController(IParkingService parkingService) {
+    public AdminController(IParkingService parkingService, IRegistryEntryService registryEntryService) {
         this.parkingService = parkingService;
+        this.registryEntryService = registryEntryService;
     }
 
 
@@ -93,5 +99,18 @@ public class AdminController {
         parkingService.deleteParking(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PARKING_DELETE_MESSAGE));
+    }
+
+
+    @Operation(summary = "Get vehicles from the specified parking lot")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Vehicles list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Vehicles already exists", content = @Content)
+    })
+    @GetMapping("/list-specific-parking-vehicles")
+    public ResponseEntity<List<RegistryEntry>> getListVehicles(
+            @RequestParam("parkingId") Long parkingId
+    ) {
+        return ResponseEntity.ok(registryEntryService.getListSpecificParkingVehicles(parkingId));
     }
 }
