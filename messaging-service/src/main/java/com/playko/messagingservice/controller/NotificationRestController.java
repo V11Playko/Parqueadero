@@ -34,7 +34,7 @@ public class NotificationRestController {
     })
     @PostMapping("/send-notification")
     public ResponseEntity<Map<String, String>> sendNotification(@Valid @RequestBody SendNotification sendNotification) {
-        notificationService.notifyClient(sendNotification);
+        notificationService.sendNotification(sendNotification);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.REGISTERED_OUTPUT_MESSAGE));
     }
