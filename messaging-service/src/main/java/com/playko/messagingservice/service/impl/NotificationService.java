@@ -3,11 +3,15 @@ package com.playko.messagingservice.service.impl;
 import com.playko.messagingservice.entities.SendNotification;
 import com.playko.messagingservice.service.INotificationService;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 public class NotificationService implements INotificationService {
+    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
+
     /**
      * Notifica al cliente sobre la entrada de un vehículo al parqueadero.
      *
@@ -16,10 +20,10 @@ public class NotificationService implements INotificationService {
      */
     @Override
     public void sendNotification(SendNotification sendNotification) {
-        System.out.println("Email: " + sendNotification.getEmail());
-        System.out.println("Placa: " + sendNotification.getPlate());
-        System.out.println("Mensaje: " + sendNotification.getMessage());
-        System.out.println("Id del parqueadero: " + sendNotification.getParkingId());
+        logger.info("Email: {}", sendNotification.getEmail());
+        logger.info("Placa: {}", sendNotification.getPlate());
+        logger.info("Mensaje: {}", sendNotification.getMessage());
+        logger.info("Id del parqueadero: {}", sendNotification.getParkingId());
     }
 }
 
