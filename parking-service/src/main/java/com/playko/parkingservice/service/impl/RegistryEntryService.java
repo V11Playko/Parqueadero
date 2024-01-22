@@ -134,7 +134,7 @@ public class RegistryEntryService implements IRegistryEntryService {
      * Obtiene la lista de los 10 vehículos más registrados en diferentes parqueaderos, junto con la cantidad de veces que han sido registrados.
      *
      * @return Lista de objetos {@link VehicleRegistrations} que contienen la placa del vehículo y la cantidad de registros.
-     * @throws NoDataFoundException Si no se encuentran datos registrados.
+     * @throws NoDataFoundException - Si no se encuentran datos registrados.
      */
     @Override
     public List<VehicleRegistrations> getTopVehiclesByRegistrations() {
@@ -151,6 +151,15 @@ public class RegistryEntryService implements IRegistryEntryService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Obtiene la lista de hasta 10 vehículos que más veces se han registrado en un parqueadero específico,
+     * junto con la cantidad de veces que han sido registrados.
+     *
+     * @param id - Identificador del parqueadero para el cual se desea obtener la información de los vehículos registrados.
+     * @return Lista de hasta 10 objetos {@link VehicleRegistrations}, que contienen información sobre la placa del vehículo
+     *         y la cantidad de veces que ha sido registrado en el parqueadero.
+     * @throws NoDataFoundException - Se lanza si no se encuentra ningún dato para el parqueadero especificado.
+     */
     @Override
     public List<VehicleRegistrations> getTopVehiclesByRegistrationsInParking(Long id) {
         List<Object[]> topVehiclesData = historyMovementRepository.findTop10RegisteredVehiclesInParking(id);
