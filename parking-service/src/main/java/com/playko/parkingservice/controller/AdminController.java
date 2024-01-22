@@ -3,6 +3,7 @@ package com.playko.parkingservice.controller;
 import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
+import com.playko.parkingservice.entities.VehicleRegistrations;
 import com.playko.parkingservice.service.IParkingService;
 import com.playko.parkingservice.service.IRegistryEntryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -112,5 +113,14 @@ public class AdminController {
             @RequestParam("parkingId") Long parkingId
     ) {
         return ResponseEntity.ok(registryEntryService.getListSpecificParkingVehicles(parkingId));
+    }
+
+    @Operation(summary = "Get top vehicles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
+    })
+    @GetMapping("/getTopVehicles")
+    public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
+        return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
     }
 }

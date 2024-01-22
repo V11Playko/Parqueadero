@@ -7,6 +7,8 @@ import com.playko.parkingservice.client.dto.User;
 import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
+import com.playko.parkingservice.entities.VehicleRegistrations;
+import com.playko.parkingservice.repository.IHistoryMovementRepository;
 import com.playko.parkingservice.repository.IParkingRepository;
 import com.playko.parkingservice.repository.IRegistryEntryRepository;
 import com.playko.parkingservice.service.IRegistryEntryService;
@@ -19,8 +21,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,12 +34,14 @@ public class RegistryEntryService implements IRegistryEntryService {
     private final IParkingRepository parkingRepository;
     private final IUserClient userClient;
     private final IMessagingClient messagingClient;
+    private final IHistoryMovementRepository historyMovementRepository;
 
-    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient) {
+    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient, IHistoryMovementRepository historyMovementRepository) {
         this.registryEntryRepository = registryEntryRepository;
         this.parkingRepository = parkingRepository;
         this.userClient = userClient;
         this.messagingClient = messagingClient;
+        this.historyMovementRepository = historyMovementRepository;
     }
 
 
@@ -121,5 +128,26 @@ public class RegistryEntryService implements IRegistryEntryService {
         }
 
         return listVehicle;
+    }
+
+    /**
+     * Obtiene la lista de los 10 vehículos más registrados en diferentes parqueaderos, junto con la cantidad de veces que han sido registrados.
+     *
+     * @return Lista de objetos {@link VehicleRegistrations} que contienen la placa del vehículo y la cantidad de registros.
+     * @throws NoDataFoundException Si no se encuentran datos registrados.
+     */
+    @Override
+    public List<VehicleRegistrations> getTopVehiclesByRegistrations() {
+        List<Object[]> topVehiclesData = historyMovementRepository.findTop10RegisteredVehicles();
+
+        if (topVehiclesData == null) {
+            throw new NoDataFoundException();
+        }
+
+        return topVehiclesData.stream()
+                .filter(data -> data.length == 2)
+                .map(data -> new VehicleRegistrations((String) data[0], (Long) data[1]))
+                .limit(10)
+                .collect(Collectors.toList());
     }
 }

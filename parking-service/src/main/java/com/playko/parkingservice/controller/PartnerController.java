@@ -4,6 +4,7 @@ import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.RegistryOut;
+import com.playko.parkingservice.entities.VehicleRegistrations;
 import com.playko.parkingservice.service.IParkingService;
 import com.playko.parkingservice.service.IRegistryEntryService;
 import com.playko.parkingservice.service.IRegistryOutService;
@@ -90,5 +91,14 @@ public class PartnerController {
     public ResponseEntity<List<Parking>> getAssociatedParkings(
             @RequestParam("emailAssignedPartner") String emailAssignedPartner) {
             return ResponseEntity.ok(parkingService.getAssociatedParkings(emailAssignedPartner));
+    }
+
+    @Operation(summary = "Get top vehicles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
+    })
+    @GetMapping("/getTopVehicles")
+    public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
+        return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
     }
 }
