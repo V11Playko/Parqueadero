@@ -1,28 +1,36 @@
 package com.playko.parkingservice.service.impl;
 
+import com.playko.parkingservice.client.IUserClient;
+import com.playko.parkingservice.client.dto.User;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.repository.IParkingRepository;
 import com.playko.parkingservice.repository.IRegistryEntryRepository;
 import com.playko.parkingservice.service.IRegistryEntryService;
+import com.playko.parkingservice.service.exceptions.InvalidAssignedPartnerException;
 import com.playko.parkingservice.service.exceptions.NoDataFoundException;
 import com.playko.parkingservice.service.exceptions.ParkingFullException;
 import com.playko.parkingservice.service.exceptions.ParkingNotFoundException;
 import com.playko.parkingservice.service.exceptions.PlateAlreadyExistsException;
+import com.playko.parkingservice.service.exceptions.UserIsNotPartnerException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class RegistryEntryService implements IRegistryEntryService {
     private final IRegistryEntryRepository registryEntryRepository;
     private final IParkingRepository parkingRepository;
+    private final IUserClient userClient;
 
-    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository) {
+    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient) {
         this.registryEntryRepository = registryEntryRepository;
         this.parkingRepository = parkingRepository;
+        this.userClient = userClient;
     }
 
 
@@ -56,5 +64,49 @@ public class RegistryEntryService implements IRegistryEntryService {
         registryEntry.setIdParking(parkingId);
 
         registryEntryRepository.save(registryEntry);
+    }
+
+    /**
+     * Obtiene la lista de vehículos registrados en un parqueadero en especifico.
+     *
+     * @param parkingId - El ID del parqueadero del cual se desea obtener la lista de vehículos.
+     * @return Lista de registros de entrada correspondientes al parqueadero especificado.
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos para el parqueadero especificado.
+     */
+    @Override
+    public List<RegistryEntry> getListSpecificParkingVehicles(Long parkingId) {
+        List<RegistryEntry> listVehicle = registryEntryRepository.findByIdParking(parkingId);
+
+        if (listVehicle.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        return listVehicle;
+    }
+
+    /**
+     * Obtiene la lista de vehículos registrados en un parqueadero que le pertenezca al socio.
+     *
+     * @param parkingId - El ID del parqueadero del cual se desea obtener la lista de vehículos.
+     * @return Lista de registros de entrada correspondientes al parqueadero especificado.
+     * @throws InvalidAssignedPartnerException - Se lanza si el socio asignado al parqueadero no coincide con el proporcionado
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos para el parqueadero especificado.
+     */
+    @Override
+    public List<RegistryEntry> getListVehicles(Long parkingId) {
+        Optional<Parking> parking = parkingRepository.findById(parkingId);
+        List<RegistryEntry> listVehicle = registryEntryRepository.findByIdParking(parkingId);
+
+        Optional<User> userclient = userClient.getUser(parking.get().getEmailAssignedPartner());
+
+        if (!parking.get().getEmailAssignedPartner().equals(userclient.get().getEmail())
+                && !parking.get().getEmailAssignedPartner().equals("admin@mail.com")) {
+            throw new InvalidAssignedPartnerException();
+        }
+        if (listVehicle.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        return listVehicle;
     }
 }
