@@ -46,83 +46,131 @@
 					]
 				},
 				{
-					"name": "Save Partner",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
-									"type": "string"
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Save Partner",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Heinner\",\r\n  \"surname\": \"Vega\",\r\n  \"phoneNumber\": \"+57 3137825323\",\r\n  \"email\": \"vega@gmail.com\",\r\n  \"password\": \"Vega\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/users/v1/admin/save-partner",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"users",
+										"v1",
+										"admin",
+										"save-partner"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Heinner\",\r\n  \"surname\": \"Vega\",\r\n  \"phoneNumber\": \"+57 3137825323\",\r\n  \"email\": \"vega@gmail.com\",\r\n  \"password\": \"Vega\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "By Email",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTcwNTgxNjMyNiwiZXhwIjoxNzI3NDE2MzI2fQ.tiJjuW8MvHFC_ElJhYpGWwlwlr9r9IlO51ceTYllgD14bwQ7v9km4mVrShNBmMgkDzcL4ZGNk_hF1tBB82WRGg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/users/v1/admin/user-by-email?email=vega@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"users",
+										"v1",
+										"admin",
+										"user-by-email"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "vega@gmail.com"
+										}
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8091/users/v1/admin/save-partner",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8091",
-							"path": [
-								"users",
-								"v1",
-								"admin",
-								"save-partner"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "By Email",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTcwNTgxNjMyNiwiZXhwIjoxNzI3NDE2MzI2fQ.tiJjuW8MvHFC_ElJhYpGWwlwlr9r9IlO51ceTYllgD14bwQ7v9km4mVrShNBmMgkDzcL4ZGNk_hF1tBB82WRGg",
-									"type": "string"
+					"name": "Partner",
+					"item": [
+						{
+							"name": "By Email",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/users/v1/partner/getUser?email=vega@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"users",
+										"v1",
+										"partner",
+										"getUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "vega@gmail.com"
+										}
+									]
 								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8091/users/v1/admin/user-by-email?email=vega@gmail.com",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8091",
-							"path": [
-								"users",
-								"v1",
-								"admin",
-								"user-by-email"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "vega@gmail.com"
-								}
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -282,6 +330,43 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "List Specific Parking Vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/list-specific-parking-vehicles?parkingId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"list-specific-parking-vehicles"
+									],
+									"query": [
+										{
+											"key": "parkingId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -369,6 +454,86 @@
 										"partner",
 										"v1",
 										"save-registry-out"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Associated Parkings",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/associated-parkings?emailAssignedPartner=vega@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"associated-parkings"
+									],
+									"query": [
+										{
+											"key": "emailAssignedPartner",
+											"value": "vega@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/list-vehicles?parkingId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"list-vehicles"
+									],
+									"query": [
+										{
+											"key": "parkingId",
+											"value": "1"
+										}
 									]
 								}
 							},
