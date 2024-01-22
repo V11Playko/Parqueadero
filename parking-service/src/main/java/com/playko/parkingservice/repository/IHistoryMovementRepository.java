@@ -24,4 +24,8 @@ public interface IHistoryMovementRepository extends JpaRepository<HistoryMovemen
                   "GROUP BY vehicle.plateNumber " +
                   "ORDER BY registrationCount DESC ")
     List<Object[]> findTop10RegisteredVehiclesInParking(@Param("id") Long id);
+
+    @Query("SELECT movement.plateNumber FROM HistoryMovement movement WHERE movement.idParking = :id " +
+            "GROUP BY movement.plateNumber HAVING COUNT(movement.plateNumber) = 1")
+    List<String> findFirstTimeParkings(@Param("id") Long id);
 }

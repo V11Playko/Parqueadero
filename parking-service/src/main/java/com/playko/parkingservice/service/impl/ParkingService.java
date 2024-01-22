@@ -2,13 +2,16 @@ package com.playko.parkingservice.service.impl;
 
 import com.playko.parkingservice.client.IUserClient;
 import com.playko.parkingservice.client.dto.User;
+import com.playko.parkingservice.entities.HistoryMovement;
 import com.playko.parkingservice.entities.Parking;
+import com.playko.parkingservice.repository.IHistoryMovementRepository;
 import com.playko.parkingservice.repository.IParkingRepository;
 import com.playko.parkingservice.service.IParkingService;
 import com.playko.parkingservice.service.exceptions.CostPerHourIsRequired;
 import com.playko.parkingservice.service.exceptions.InvalidAssignedPartnerException;
 import com.playko.parkingservice.service.exceptions.MaximumCapacityIsRequired;
 import com.playko.parkingservice.service.exceptions.NameIsRequired;
+import com.playko.parkingservice.service.exceptions.ParkingNotFoundException;
 import com.playko.parkingservice.service.exceptions.UserIsNotPartnerException;
 import com.playko.parkingservice.service.exceptions.NoDataFoundException;
 import feign.FeignException;
@@ -23,10 +26,12 @@ import java.util.Optional;
 public class ParkingService implements IParkingService {
     private final IParkingRepository parkingRepository;
     private final IUserClient userClient;
+    private final IHistoryMovementRepository historyMovementRepository;
 
-    public ParkingService(IParkingRepository parkingRepository, IUserClient userClient) {
+    public ParkingService(IParkingRepository parkingRepository, IUserClient userClient, IHistoryMovementRepository historyMovementRepository) {
         this.parkingRepository = parkingRepository;
         this.userClient = userClient;
+        this.historyMovementRepository = historyMovementRepository;
     }
 
 
@@ -143,5 +148,27 @@ public class ParkingService implements IParkingService {
         if (user.isPresent() && user.get().getRole().getName().equals("ROLE_PARTNER")) {
             return parkingRepository.findByEmailAssignedPartner(emailAssignedPartner);
         } else throw new UserIsNotPartnerException();
+    }
+
+    /**
+     * Recupera las placas de vehículos que han sido registradas por primera vez en un parqueadero.
+     *
+     * @param id - Identificador único del parqueadero.
+     * @return Lista de cadenas que representan las placas de vehículos registradas por primera vez.
+     * @throws ParkingNotFoundException - Si no se encuentra el parqueadero con el ID proporcionado.
+     * @throws NoDataFoundException - Si no se encuentran datos de vehículos registrados por primera vez en el parqueadero.
+     */
+    @Override
+    public List<String> getFirstTimeParkings(Long id) {
+        if (!parkingRepository.existsById(id)) {
+            throw new ParkingNotFoundException();
+        }
+        List<String> firstTimeParkings = historyMovementRepository.findFirstTimeParkings(id);
+
+        if (firstTimeParkings == null || firstTimeParkings.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        return firstTimeParkings;
     }
 }

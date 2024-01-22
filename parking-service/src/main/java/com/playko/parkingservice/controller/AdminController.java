@@ -1,6 +1,7 @@
 package com.playko.parkingservice.controller;
 
 import com.playko.parkingservice.configuration.Constants;
+import com.playko.parkingservice.entities.HistoryMovement;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.VehicleRegistrations;
@@ -133,5 +134,11 @@ public class AdminController {
             @PathVariable Long id) {
         List<VehicleRegistrations> topVehicles = registryEntryService.getTopVehiclesByRegistrationsInParking(id);
         return ResponseEntity.ok(topVehicles);
+    }
+
+    @GetMapping("/first-time-parkings/{id}")
+    public ResponseEntity<List<String>> getFirstTimeParkings(@PathVariable Long id) {
+        List<String> firstTimeParkings = parkingService.getFirstTimeParkings(id);
+        return new ResponseEntity<>(firstTimeParkings, HttpStatus.OK);
     }
 }
