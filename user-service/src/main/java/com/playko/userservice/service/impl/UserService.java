@@ -5,6 +5,7 @@ import com.playko.userservice.repository.IUserRepository;
 import com.playko.userservice.service.IAuthPasswordEncoderPort;
 import com.playko.userservice.service.IUserService;
 import com.playko.userservice.service.exceptions.NoDataFoundException;
+import com.playko.userservice.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -35,18 +36,25 @@ public class UserService implements IUserService {
     }
 
     /**
-     * Buscar usuario
-     * Buscar un usuario por su correo electronico
+     * Obtiene un usuario por su dirección de correo electrónico.
      *
-     * @param email - Correo electronico del usuario que se quiere buscar
-     *
-     * */
+     * @param email La dirección de correo electrónico del usuario a buscar.
+     * @return Un objeto Optional que contiene el usuario encontrado.
+     * @throws NoDataFoundException - Si no se encuentra el usuario asociado al correo electrónico.
+     * @throws UnauthorizedException - Si el usuario no tiene el rol de socio o administrador.
+     */
     @Override
     public Optional<User> getUserByEmail(String email) {
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
 
         if (userOptional.isEmpty()) {
             throw new NoDataFoundException();
+        }
+
+        String userRole = userOptional.get().getRole().getName();
+
+        if (!userRole.equals("ROLE_PARTNER") && !userRole.equals("ROLE_ADMIN")) {
+            throw new UnauthorizedException();
         }
 
         return userOptional;

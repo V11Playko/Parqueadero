@@ -43,7 +43,6 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/users/v1/auth/login").permitAll()
-                        .requestMatchers("/users/v1/auth/getUser").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/users/v1/admin/**").hasRole("ADMIN")
                         .requestMatchers("/users/v1/partner/**").hasRole("PARTNER")

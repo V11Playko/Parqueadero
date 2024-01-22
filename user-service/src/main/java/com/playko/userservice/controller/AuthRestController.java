@@ -39,17 +39,5 @@ public class AuthRestController {
     public ResponseEntity<JwtTokenResponseDto> loginUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         return new ResponseEntity<>(this.authHandler.loginUser(loginRequestDto), HttpStatus.OK);
     }
-
-    @Operation(summary = "Find a user by its email")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User found", content = @Content),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
-    })
-    @GetMapping("/getUser")
-    public ResponseEntity<Optional<User>> getUserByEmail(@RequestParam("email") String email) {
-        return new ResponseEntity<>(this.userService.getUserByEmail(email), HttpStatus.OK);
-    }
-
-
 }
 
