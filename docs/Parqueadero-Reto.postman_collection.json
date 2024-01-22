@@ -542,6 +542,51 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Messaging-Service",
+			"item": [
+				{
+					"name": "Send Notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"correo@example.com\",\r\n    \"plate\": \"ABC123\",\r\n    \"message\": \"Se registro la entrada de un nuevo vehiculo.\",\r\n    \"parkingId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/messaging/v1/send-notification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"messaging",
+								"v1",
+								"send-notification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
