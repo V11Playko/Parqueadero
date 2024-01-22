@@ -150,4 +150,19 @@ public class RegistryEntryService implements IRegistryEntryService {
                 .limit(10)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<VehicleRegistrations> getTopVehiclesByRegistrationsInParking(Long id) {
+        List<Object[]> topVehiclesData = historyMovementRepository.findTop10RegisteredVehiclesInParking(id);
+
+        if (topVehiclesData == null) {
+            throw new NoDataFoundException();
+        }
+
+        return topVehiclesData.stream()
+                .filter(data -> data.length == 2)
+                .map(data -> new VehicleRegistrations((String) data[0], (Long) data[1]))
+                .limit(10)
+                .collect(Collectors.toList());
+    }
 }

@@ -123,4 +123,15 @@ public class AdminController {
     public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
         return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
     }
+
+    @Operation(summary = "Get top vehicles in specific parking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
+    })
+    @GetMapping("/getTopVehiclesInParking/{id}")
+    public ResponseEntity<List<VehicleRegistrations>> getTopVehiclesInParking(
+            @PathVariable Long id) {
+        List<VehicleRegistrations> topVehicles = registryEntryService.getTopVehiclesByRegistrationsInParking(id);
+        return ResponseEntity.ok(topVehicles);
+    }
 }

@@ -11,4 +11,5 @@ public interface IRegistryEntryService {
     List<RegistryEntry> getListSpecificParkingVehicles(Long parkingId);
     List<RegistryEntry> getListVehicles(Long parkingId);
     List<VehicleRegistrations>getTopVehiclesByRegistrations();
+    List<VehicleRegistrations> getTopVehiclesByRegistrationsInParking(Long id);
 }

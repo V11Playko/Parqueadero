@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -100,5 +101,16 @@ public class PartnerController {
     @GetMapping("/getTopVehicles")
     public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
         return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
+    }
+
+    @Operation(summary = "Get top vehicles in specific parking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
+    })
+    @GetMapping("/getTopVehiclesInParking/{id}")
+    public ResponseEntity<List<VehicleRegistrations>> getTopVehiclesInParking(
+            @PathVariable Long id) {
+        List<VehicleRegistrations> topVehicles = registryEntryService.getTopVehiclesByRegistrationsInParking(id);
+        return ResponseEntity.ok(topVehicles);
     }
 }
