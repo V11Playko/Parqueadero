@@ -5,6 +5,10 @@ import com.playko.parkingservice.service.exceptions.InvalidAssignedPartnerExcept
 import com.playko.parkingservice.service.exceptions.MaximumCapacityIsRequired;
 import com.playko.parkingservice.service.exceptions.NameIsRequired;
 import com.playko.parkingservice.service.exceptions.NoDataFoundException;
+import com.playko.parkingservice.service.exceptions.ParkingFullException;
+import com.playko.parkingservice.service.exceptions.ParkingNotFoundException;
+import com.playko.parkingservice.service.exceptions.PlateAlreadyExistsException;
+import com.playko.parkingservice.service.exceptions.PlateNotRegisteredException;
 import com.playko.parkingservice.service.exceptions.UserIsNotPartnerException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -26,6 +30,10 @@ import static com.playko.parkingservice.configuration.Constants.INVALID_ASSIGNED
 import static com.playko.parkingservice.configuration.Constants.MAXIMUMCAPACITY_IS_REQUIRED_MESSAGE;
 import static com.playko.parkingservice.configuration.Constants.NAME_IS_REQUIRED_MESSAGE;
 import static com.playko.parkingservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
+import static com.playko.parkingservice.configuration.Constants.PARKING_FULL_MESSAGE;
+import static com.playko.parkingservice.configuration.Constants.PARKING_NOT_FOUND;
+import static com.playko.parkingservice.configuration.Constants.PLATE_ALREADY_EXISTS_MESSAGE;
+import static com.playko.parkingservice.configuration.Constants.PLATE_NOT_REGISTERED_MESSAGE;
 import static com.playko.parkingservice.configuration.Constants.RESPONSE_MESSAGE_KEY;
 import static com.playko.parkingservice.configuration.Constants.USER_IS_NOT_PARTNER_MESSAGE;
 
@@ -112,5 +120,33 @@ public class ControllerAdvisor {
             CostPerHourIsRequired costPerHourIsRequiredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, COSTPERHOUR_IS_REQUIRED_MESSAGE));
+    }
+
+    @ExceptionHandler(PlateAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handlePlateAlreadyExistsException(
+            PlateAlreadyExistsException plateAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PLATE_ALREADY_EXISTS_MESSAGE));
+    }
+
+    @ExceptionHandler(ParkingFullException.class)
+    public ResponseEntity<Map<String, String>> handleParkingFullException(
+            ParkingFullException parkingFullException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PARKING_FULL_MESSAGE));
+    }
+
+    @ExceptionHandler(PlateNotRegisteredException.class)
+    public ResponseEntity<Map<String, String>> handlePlateNotRegisteredException(
+            PlateNotRegisteredException plateNotRegisteredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PLATE_NOT_REGISTERED_MESSAGE));
+    }
+
+    @ExceptionHandler(ParkingNotFoundException.class)
+    public ResponseEntity<Map<String, String>> parkingNotFoundException(
+            ParkingNotFoundException on) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PARKING_NOT_FOUND));
     }
 }

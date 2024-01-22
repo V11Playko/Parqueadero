@@ -287,7 +287,94 @@
 				},
 				{
 					"name": "Partner",
-					"item": []
+					"item": [
+						{
+							"name": "Save Registry Entry",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"plateNumber\": \"HV9801\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/save-registry-entry?parkingId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"save-registry-entry"
+									],
+									"query": [
+										{
+											"key": "parkingId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Registry Out",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idParking\": 1,\r\n    \"plateNumber\": \"HV9801\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/save-registry-out",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"save-registry-out"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

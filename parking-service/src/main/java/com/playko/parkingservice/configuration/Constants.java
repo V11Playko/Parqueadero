@@ -22,4 +22,9 @@ public class Constants {
     public static final String NAME_IS_REQUIRED_MESSAGE = "El campo 'name' no puede estar vacío";
     public static final String MAXIMUMCAPACITY_IS_REQUIRED_MESSAGE = "El campo 'maximumCapacity' no puede estar vacío";
     public static final String COSTPERHOUR_IS_REQUIRED_MESSAGE = "El campo 'costPerHour' no puede estar vacío";
+    public static final String PLATE_ALREADY_EXISTS_MESSAGE = "No se puede Registrar Ingreso, ya existe la placa en este u otro parqueadero";
+    public static final String PARKING_FULL_MESSAGE = "El estacionamiento esta en su capacidad maxima";
+    public static final String PLATE_NOT_REGISTERED_MESSAGE = "No se puede Registrar Salida, no existe la placa en el parqueadero";
+    public static final String REGISTERED_OUTPUT_MESSAGE = "Salida registrada";
+    public static final String PARKING_NOT_FOUND = "No se encontró el parqueadero con el ID especificado.";
 }
