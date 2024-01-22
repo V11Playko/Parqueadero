@@ -1,6 +1,7 @@
 package com.playko.userservice.configuration;
 
 import com.playko.userservice.service.exceptions.NoDataFoundException;
+import com.playko.userservice.service.exceptions.UnauthorizedException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 import static com.playko.userservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.playko.userservice.configuration.Constants.RESPONSE_MESSAGE_KEY;
+import static com.playko.userservice.configuration.Constants.UNAUTHORIZED_MESSAGE;
 
 @ControllerAdvice
 public class ControllerAdvisor {
@@ -67,5 +69,12 @@ public class ControllerAdvisor {
             NoDataFoundException noDataFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, NO_DATA_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<Map<String, String>> unauthorizedException(
+            UnauthorizedException unauthorizedException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, UNAUTHORIZED_MESSAGE));
     }
 }
