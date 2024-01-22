@@ -367,6 +367,101 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Top Vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/getTopVehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"getTopVehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top Vehicles in Specific Parking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/getTopVehiclesInParking/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"getTopVehiclesInParking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "First time vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/first-time-parkings/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"first-time-parkings",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -534,6 +629,101 @@
 											"key": "parkingId",
 											"value": "1"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top Vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/getTopVehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"getTopVehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top Vehicles in specific parking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/getTopVehiclesInParking/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"getTopVehiclesInParking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "First time vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/first-time-parkings/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"first-time-parkings",
+										"2"
 									]
 								}
 							},
