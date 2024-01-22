@@ -1,0 +1,7 @@
+server:
+  port: 8093
+
+appDescription: "Messaging-Service"
+appVersion: "1.0.0"
+
+

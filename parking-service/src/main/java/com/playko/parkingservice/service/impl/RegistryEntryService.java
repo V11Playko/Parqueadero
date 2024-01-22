@@ -1,7 +1,10 @@
 package com.playko.parkingservice.service.impl;
 
+import com.playko.parkingservice.client.IMessagingClient;
 import com.playko.parkingservice.client.IUserClient;
+import com.playko.parkingservice.client.dto.SendNotification;
 import com.playko.parkingservice.client.dto.User;
+import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.repository.IParkingRepository;
@@ -12,7 +15,6 @@ import com.playko.parkingservice.service.exceptions.NoDataFoundException;
 import com.playko.parkingservice.service.exceptions.ParkingFullException;
 import com.playko.parkingservice.service.exceptions.ParkingNotFoundException;
 import com.playko.parkingservice.service.exceptions.PlateAlreadyExistsException;
-import com.playko.parkingservice.service.exceptions.UserIsNotPartnerException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +28,19 @@ public class RegistryEntryService implements IRegistryEntryService {
     private final IRegistryEntryRepository registryEntryRepository;
     private final IParkingRepository parkingRepository;
     private final IUserClient userClient;
+    private final IMessagingClient messagingClient;
 
-    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient) {
+    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient) {
         this.registryEntryRepository = registryEntryRepository;
         this.parkingRepository = parkingRepository;
         this.userClient = userClient;
+        this.messagingClient = messagingClient;
     }
 
 
     /**
-     * Registra la entrada de un vehículo en un parqueadero.
+     * Registra la entrada de un vehículo en un parqueadero
+     * y se le envia una notificacion al servicio de mensajeria
      *
      * @param registryEntry - Información del registro de entrada.
      * @param parkingId - Identificador del parqueadero.
@@ -59,6 +64,14 @@ public class RegistryEntryService implements IRegistryEntryService {
         if (registryEntryRepository.countByIdParking(parkingId) >= maxCapacity) {
             throw new ParkingFullException();
         }
+
+        SendNotification notification = new SendNotification();
+        notification.setEmail(parking.getEmailAssignedPartner());
+        notification.setPlate(registryEntry.getPlateNumber());
+        notification.setMessage(Constants.PLATE_IN_PARKING_MESSAGE);
+        notification.setParkingId(parking.getId());
+
+        messagingClient.sendNotification(notification);
 
         registryEntry.setDateEntry(LocalDateTime.now());
         registryEntry.setIdParking(parkingId);
