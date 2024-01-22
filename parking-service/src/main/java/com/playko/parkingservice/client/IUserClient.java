@@ -15,4 +15,6 @@ public interface IUserClient {
 
     @GetMapping("/admin/user-by-email")
     Optional<User> getUserByEmail(@RequestParam String email);
+    @GetMapping("/partner/getUser")
+    Optional<User> getUser(@RequestParam String email);
 }
