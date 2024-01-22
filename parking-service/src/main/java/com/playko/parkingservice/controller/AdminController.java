@@ -108,7 +108,7 @@ public class AdminController {
             @ApiResponse(responseCode = "409", description = "Vehicles already exists", content = @Content)
     })
     @GetMapping("/list-specific-parking-vehicles")
-    public ResponseEntity<List<RegistryEntry>> getListVehicles(
+    public ResponseEntity<List<RegistryEntry>> getListSpecificParkingVehicles(
             @RequestParam("parkingId") Long parkingId
     ) {
         return ResponseEntity.ok(registryEntryService.getListSpecificParkingVehicles(parkingId));
