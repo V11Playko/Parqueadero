@@ -134,4 +134,14 @@ public class PartnerController {
             @RequestParam("parkingId") Long parkingId) {
         return ResponseEntity.ok(parkingService.getEarningsForPeriod(parkingId));
     }
+
+    @Operation(summary = "Get plate of the vehicles found")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Plate found", content = @Content)
+    })
+    @GetMapping("/searchPlate")
+    public ResponseEntity<List<RegistryEntry>> searchParkedVehiclesByPlateNumber(
+            @RequestParam String plateNumber) {
+        return ResponseEntity.ok(registryEntryService.findParkedVehiclesByPlateNumber(plateNumber));
+    }
 }

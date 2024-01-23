@@ -16,4 +16,6 @@ public interface IRegistryEntryRepository extends JpaRepository<RegistryEntry, L
     @Query("SELECT e FROM RegistryEntry e WHERE e.plateNumber = :plateNumber AND e.idParking = :parkingId")
     List<RegistryEntry> findByPlateNumberAndParkingId(@Param("plateNumber") String plateNumber, @Param("parkingId") Long parkingId);
     List<RegistryEntry> findByIdParking(Long parkingId);
+    @Query("SELECT e FROM RegistryEntry e WHERE UPPER(e.plateNumber) LIKE UPPER(concat('%', :plateNumber, '%')) AND e.idParking IS NOT NULL")
+    List<RegistryEntry> findParkedVehiclesByPlateNumber(@Param("plateNumber") String plateNumber);
 }

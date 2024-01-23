@@ -145,4 +145,14 @@ public class AdminController {
         List<String> firstTimeParkings = parkingService.getFirstTimeParkings(id);
         return new ResponseEntity<>(firstTimeParkings, HttpStatus.OK);
     }
+
+    @Operation(summary = "Get plate of the vehicles found")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Plate found", content = @Content)
+    })
+    @GetMapping("/searchPlate")
+    public ResponseEntity<List<RegistryEntry>> searchParkedVehiclesByPlateNumber(
+            @RequestParam String plateNumber) {
+        return ResponseEntity.ok(registryEntryService.findParkedVehiclesByPlateNumber(plateNumber));
+    }
 }

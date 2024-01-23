@@ -12,4 +12,5 @@ public interface IRegistryEntryService {
     List<RegistryEntry> getListVehicles(Long parkingId);
     List<VehicleRegistrations>getTopVehiclesByRegistrations();
     List<VehicleRegistrations> getTopVehiclesByRegistrationsInParking(Long id);
+    List<RegistryEntry> findParkedVehiclesByPlateNumber(String plateNumber);
 }

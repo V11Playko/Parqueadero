@@ -57,8 +57,10 @@ public class RegistryEntryService implements IRegistryEntryService {
      */
     @Override
     public void saveRegistryEntry(RegistryEntry registryEntry, Long parkingId) {
+        String plateNumberUpperCase = registryEntry.getPlateNumber().toUpperCase();
+
         boolean plateExistsInAnyParking =
-                registryEntryRepository.existsByPlateNumberAndIdParkingIsNotNull(registryEntry.getPlateNumber());
+                registryEntryRepository.existsByPlateNumberAndIdParkingIsNotNull(plateNumberUpperCase);
 
         if (plateExistsInAnyParking) {
             throw new PlateAlreadyExistsException();
@@ -74,7 +76,7 @@ public class RegistryEntryService implements IRegistryEntryService {
 
         SendNotification notification = new SendNotification();
         notification.setEmail(parking.getEmailAssignedPartner());
-        notification.setPlate(registryEntry.getPlateNumber());
+        notification.setPlate(plateNumberUpperCase);
         notification.setMessage(Constants.PLATE_IN_PARKING_MESSAGE);
         notification.setParkingId(parking.getId());
 
@@ -82,7 +84,7 @@ public class RegistryEntryService implements IRegistryEntryService {
 
         registryEntry.setDateEntry(LocalDateTime.now());
         registryEntry.setIdParking(parkingId);
-
+        registryEntry.setPlateNumber(plateNumberUpperCase);
         registryEntryRepository.save(registryEntry);
     }
 
@@ -173,5 +175,24 @@ public class RegistryEntryService implements IRegistryEntryService {
                 .map(data -> new VehicleRegistrations((String) data[0], (Long) data[1]))
                 .limit(10)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Busca vehículos estacionados en cualquier parqueadero que coincidan con el patrón de placa proporcionado.
+     *
+     * @param plateNumber - Patrón de placa a buscar.
+     * @return Lista de registros de entrada de vehículos que coinciden con el patrón de placa.
+     * @throws NoDataFoundException - Se lanza si no se encuentran vehículos estacionados que coincidan con el patrón.
+     */
+    @Override
+    public List<RegistryEntry> findParkedVehiclesByPlateNumber(String plateNumber) {
+        List<RegistryEntry> parkedVehicles =
+                registryEntryRepository.findParkedVehiclesByPlateNumber(plateNumber);
+
+        if (parkedVehicles.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        return parkedVehicles;
     }
 }
