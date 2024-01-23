@@ -19,7 +19,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"vega@gmail.com\",\r\n  \"password\": \"Vega\"\r\n}",
+									"raw": "{\r\n  \"email\": \"admin@mail.com\",\r\n  \"password\": \"admin\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -97,7 +97,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTcwNTgxNjMyNiwiZXhwIjoxNzI3NDE2MzI2fQ.tiJjuW8MvHFC_ElJhYpGWwlwlr9r9IlO51ceTYllgD14bwQ7v9km4mVrShNBmMgkDzcL4ZGNk_hF1tBB82WRGg",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
 											"type": "string"
 										}
 									]
@@ -105,7 +105,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/users/v1/admin/user-by-email?email=vega@gmail.com",
+									"raw": "http://localhost:8091/users/v1/admin/user-by-email?email=admin@mail.com",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -120,7 +120,7 @@
 									"query": [
 										{
 											"key": "email",
-											"value": "vega@gmail.com"
+											"value": "admin@mail.com"
 										}
 									]
 								}
@@ -277,7 +277,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8092/admin/v1/updateParking/1?emailAssignedPartner=vega@gmail.com",
+									"raw": "http://localhost:8092/admin/v1/update-parking/1?emailAssignedPartner=vega@gmail.com",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -286,7 +286,7 @@
 									"path": [
 										"admin",
 										"v1",
-										"updateParking",
+										"update-parking",
 										"1"
 									],
 									"query": [
@@ -315,7 +315,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8092/admin/v1/deleteParking/1",
+									"raw": "http://localhost:8092/admin/v1/delete-parking/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -324,8 +324,8 @@
 									"path": [
 										"admin",
 										"v1",
-										"deleteParking",
-										"1"
+										"delete-parking",
+										"3"
 									]
 								}
 							},
@@ -367,6 +367,138 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Top Vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/get-top-vehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"get-top-vehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top Vehicles in Specific Parking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/getTopVehiclesInParking/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"getTopVehiclesInParking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "First time vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/first-time-parkings/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"first-time-parkings",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Plates",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzA1ODE3MDEwLCJleHAiOjE3Mjc0MTcwMTB9.U9WPonJSMIvSOLbLLqK-3MD2-gNEffTFTc_rtUxMl3Tgy7YqtsCE9W6WMeUdoetKaZqFWMLmtMxRzZSmb1vz4A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/admin/v1/search-plate?plateNumber=H",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"admin",
+										"v1",
+										"search-plate"
+									],
+									"query": [
+										{
+											"key": "plateNumber",
+											"value": "H"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -390,7 +522,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"plateNumber\": \"HV9801\"\r\n}",
+									"raw": "{\r\n  \"plateNumber\": \"HVG980\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -436,7 +568,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"idParking\": 1,\r\n    \"plateNumber\": \"HV9801\"\r\n}",
+									"raw": "{\r\n    \"idParking\": 1,\r\n    \"plateNumber\": \"HVG980\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -533,6 +665,175 @@
 										{
 											"key": "parkingId",
 											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top Vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/get-top-vehicles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"get-top-vehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top Vehicles in specific parking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/get-top-vehicles-in-parking/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"get-top-vehicles-in-parking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "First time vehicles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/first-time-parkings/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"first-time-parkings",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Earnings for period",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/getEarningsForPeriod?parkingId=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"getEarningsForPeriod"
+									],
+									"query": [
+										{
+											"key": "parkingId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Plates",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZWdhQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfUEFSVE5FUiJdLCJpYXQiOjE3MDU4ODkyMDQsImV4cCI6MTcyNzQ4OTIwNH0.mdVQuPWSo0IddgB3cwfg3c9-BggQOdkoZnUN4gcocXLPz1I1nBxPJdqP46nv4-EhqV8-kt60b7EmGY5nph6N2A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/partner/v1/search-plate?plateNumber=H",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"partner",
+										"v1",
+										"search-plate"
+									],
+									"query": [
+										{
+											"key": "plateNumber",
+											"value": "H"
 										}
 									]
 								}

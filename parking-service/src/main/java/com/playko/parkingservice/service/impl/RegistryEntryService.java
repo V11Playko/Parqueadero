@@ -7,6 +7,8 @@ import com.playko.parkingservice.client.dto.User;
 import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
+import com.playko.parkingservice.entities.VehicleRegistrations;
+import com.playko.parkingservice.repository.IHistoryMovementRepository;
 import com.playko.parkingservice.repository.IParkingRepository;
 import com.playko.parkingservice.repository.IRegistryEntryRepository;
 import com.playko.parkingservice.service.IRegistryEntryService;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,12 +32,14 @@ public class RegistryEntryService implements IRegistryEntryService {
     private final IParkingRepository parkingRepository;
     private final IUserClient userClient;
     private final IMessagingClient messagingClient;
+    private final IHistoryMovementRepository historyMovementRepository;
 
-    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient) {
+    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient, IHistoryMovementRepository historyMovementRepository) {
         this.registryEntryRepository = registryEntryRepository;
         this.parkingRepository = parkingRepository;
         this.userClient = userClient;
         this.messagingClient = messagingClient;
+        this.historyMovementRepository = historyMovementRepository;
     }
 
 
@@ -50,8 +55,10 @@ public class RegistryEntryService implements IRegistryEntryService {
      */
     @Override
     public void saveRegistryEntry(RegistryEntry registryEntry, Long parkingId) {
+        String plateNumberUpperCase = registryEntry.getPlateNumber().toUpperCase();
+
         boolean plateExistsInAnyParking =
-                registryEntryRepository.existsByPlateNumberAndIdParkingIsNotNull(registryEntry.getPlateNumber());
+                registryEntryRepository.existsByPlateNumberAndIdParkingIsNotNull(plateNumberUpperCase);
 
         if (plateExistsInAnyParking) {
             throw new PlateAlreadyExistsException();
@@ -67,7 +74,7 @@ public class RegistryEntryService implements IRegistryEntryService {
 
         SendNotification notification = new SendNotification();
         notification.setEmail(parking.getEmailAssignedPartner());
-        notification.setPlate(registryEntry.getPlateNumber());
+        notification.setPlate(plateNumberUpperCase);
         notification.setMessage(Constants.PLATE_IN_PARKING_MESSAGE);
         notification.setParkingId(parking.getId());
 
@@ -75,7 +82,7 @@ public class RegistryEntryService implements IRegistryEntryService {
 
         registryEntry.setDateEntry(LocalDateTime.now());
         registryEntry.setIdParking(parkingId);
-
+        registryEntry.setPlateNumber(plateNumberUpperCase);
         registryEntryRepository.save(registryEntry);
     }
 
@@ -121,5 +128,69 @@ public class RegistryEntryService implements IRegistryEntryService {
         }
 
         return listVehicle;
+    }
+
+    /**
+     * Obtiene la lista de los 10 vehículos más registrados en diferentes parqueaderos, junto con la cantidad de veces que han sido registrados.
+     *
+     * @return Lista de objetos {@link VehicleRegistrations} que contienen la placa del vehículo y la cantidad de registros.
+     * @throws NoDataFoundException - Si no se encuentran datos registrados.
+     */
+    @Override
+    public List<VehicleRegistrations> getTopVehiclesByRegistrations() {
+        List<Object[]> topVehiclesData = historyMovementRepository.findTop10RegisteredVehicles();
+
+        if (topVehiclesData == null) {
+            throw new NoDataFoundException();
+        }
+
+        return topVehiclesData.stream()
+                .filter(data -> data.length == 2)
+                .map(data -> new VehicleRegistrations((String) data[0], (Long) data[1]))
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Obtiene la lista de hasta 10 vehículos que más veces se han registrado en un parqueadero específico,
+     * junto con la cantidad de veces que han sido registrados.
+     *
+     * @param id - Identificador del parqueadero para el cual se desea obtener la información de los vehículos registrados.
+     * @return Lista de hasta 10 objetos {@link VehicleRegistrations}, que contienen información sobre la placa del vehículo
+     *         y la cantidad de veces que ha sido registrado en el parqueadero.
+     * @throws NoDataFoundException - Se lanza si no se encuentra ningún dato para el parqueadero especificado.
+     */
+    @Override
+    public List<VehicleRegistrations> getTopVehiclesByRegistrationsInParking(Long id) {
+        List<Object[]> topVehiclesData = historyMovementRepository.findTop10RegisteredVehiclesInParking(id);
+
+        if (topVehiclesData == null) {
+            throw new NoDataFoundException();
+        }
+
+        return topVehiclesData.stream()
+                .filter(data -> data.length == 2)
+                .map(data -> new VehicleRegistrations((String) data[0], (Long) data[1]))
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Busca vehículos estacionados en cualquier parqueadero que coincidan con el patrón de placa proporcionado.
+     *
+     * @param plateNumber - Patrón de placa a buscar.
+     * @return Lista de registros de entrada de vehículos que coinciden con el patrón de placa.
+     * @throws NoDataFoundException - Se lanza si no se encuentran vehículos estacionados que coincidan con el patrón.
+     */
+    @Override
+    public List<RegistryEntry> findParkedVehiclesByPlateNumber(String plateNumber) {
+        List<RegistryEntry> parkedVehicles =
+                registryEntryRepository.findParkedVehiclesByPlateNumber(plateNumber);
+
+        if (parkedVehicles.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        return parkedVehicles;
     }
 }

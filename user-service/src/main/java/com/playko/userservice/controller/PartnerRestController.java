@@ -33,7 +33,7 @@ public class PartnerRestController {
             @ApiResponse(responseCode = "200", description = "User found", content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
-    @GetMapping("/getUser")
+    @GetMapping("/get-user")
     public ResponseEntity<Optional<User>> getUserByEmail(@RequestParam("email") String email) {
         return new ResponseEntity<>(this.userService.getUserByEmail(email), HttpStatus.OK);
     }

@@ -41,8 +41,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String endpoint = request.getRequestURI();
         Map<String, List<String>> rolesEndpointsMap = new HashMap<>();
 
-        rolesEndpointsMap.put("ROLE_ADMIN", Arrays.asList("/admin/v1/save-parking", "/admin/v1/parking/{id}", "/admin/v1/updateParking/{id}", "/admin/v1/deleteParking/{id}", "/admin/v1/list-specific-parking-vehicles"));
-        rolesEndpointsMap.put("ROLE_PARTNER", Arrays.asList("/partner/v1/save-registry-entry", "/partner/v1/save-registry-out", "/partner/v1/list-vehicles", "/partner/v1/associated-parkings"));
+        rolesEndpointsMap.put("ROLE_ADMIN", Arrays.asList("/admin/v1/save-parking", "/admin/v1/parking/{id}", "/admin/v1/update-parking/{id}", "/admin/v1/delete-parking/{id}", "/admin/v1/list-specific-parking-vehicles", "/admin/v1/get-top-vehicles", "/admin/v1/get-top-vehicles-in-parking/{id}", "/admin/v1/first-time-parkings/{id}", "/admin/v1/search-plate"));
+        rolesEndpointsMap.put("ROLE_PARTNER", Arrays.asList("/partner/v1/save-registry-entry", "/partner/v1/save-registry-out", "/partner/v1/list-vehicles", "/partner/v1/associated-parkings", "/partner/v1/get-top-vehicles", "/partner/v1/get-top-vehicles-in-parking/{id}", "/partner/v1/first-time-parkings/{id}", "/partner/v1/get-earnings-for-period", "/partner/v1/search-plate"));
 
         try {
             String token = getToken(request);

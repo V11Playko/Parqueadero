@@ -3,6 +3,7 @@ package com.playko.parkingservice.controller;
 import com.playko.parkingservice.configuration.Constants;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
+import com.playko.parkingservice.entities.VehicleRegistrations;
 import com.playko.parkingservice.service.IParkingService;
 import com.playko.parkingservice.service.IRegistryEntryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,7 +76,7 @@ public class AdminController {
                                     array = @ArraySchema(schema = @Schema(implementation = Parking.class)))),
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PutMapping("/updateParking/{id}")
+    @PutMapping("/update-parking/{id}")
     public ResponseEntity<Map<String, String>> updateParking(@PathVariable("id") Long id,
                                                           @RequestBody Parking parking,
                                                           @RequestParam("emailAssignedPartner") String emailAssignedPartner) {
@@ -94,7 +95,7 @@ public class AdminController {
                                     array = @ArraySchema(schema = @Schema(implementation = Parking.class)))),
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @DeleteMapping("/deleteParking/{id}")
+    @DeleteMapping("/delete-parking/{id}")
     public ResponseEntity<Map<String, String>> deleteParkingById(@PathVariable Long id) {
         parkingService.deleteParking(id);
         return ResponseEntity.status(HttpStatus.OK)
@@ -112,5 +113,45 @@ public class AdminController {
             @RequestParam("parkingId") Long parkingId
     ) {
         return ResponseEntity.ok(registryEntryService.getListSpecificParkingVehicles(parkingId));
+    }
+
+    @Operation(summary = "Get top vehicles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
+    })
+    @GetMapping("/get-top-vehicles")
+    public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
+        return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
+    }
+
+    @Operation(summary = "Get top vehicles in specific parking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
+    })
+    @GetMapping("/get-top-vehicles-in-parking/{id}")
+    public ResponseEntity<List<VehicleRegistrations>> getTopVehiclesInParking(
+            @PathVariable Long id) {
+        List<VehicleRegistrations> topVehicles = registryEntryService.getTopVehiclesByRegistrationsInParking(id);
+        return ResponseEntity.ok(topVehicles);
+    }
+
+    @Operation(summary = "Get vehicles in parking lot for the first time")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Vehicles in parking lot for the first time", content = @Content)
+    })
+    @GetMapping("/first-time-parkings/{id}")
+    public ResponseEntity<List<String>> getFirstTimeParkings(@PathVariable Long id) {
+        List<String> firstTimeParkings = parkingService.getFirstTimeParkings(id);
+        return new ResponseEntity<>(firstTimeParkings, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Get plate of the vehicles found")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Plate found", content = @Content)
+    })
+    @GetMapping("/search-plate")
+    public ResponseEntity<List<RegistryEntry>> searchParkedVehiclesByPlateNumber(
+            @RequestParam String plateNumber) {
+        return ResponseEntity.ok(registryEntryService.findParkedVehiclesByPlateNumber(plateNumber));
     }
 }

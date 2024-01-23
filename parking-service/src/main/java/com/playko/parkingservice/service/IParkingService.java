@@ -3,6 +3,7 @@ package com.playko.parkingservice.service;
 import com.playko.parkingservice.entities.Parking;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IParkingService {
@@ -11,4 +12,6 @@ public interface IParkingService {
     void updateParking(Parking parking, String emailAssignedPartner);
     void deleteParking(Long id);
     List<Parking> getAssociatedParkings(String emailAssignedPartner);
+    List<String> getFirstTimeParkings(Long id);
+    Map<String, Double> getEarningsForPeriod(Long parkingId);
 }
