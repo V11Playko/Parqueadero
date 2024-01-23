@@ -1,7 +1,6 @@
 package com.playko.parkingservice.controller;
 
 import com.playko.parkingservice.configuration.Constants;
-import com.playko.parkingservice.entities.HistoryMovement;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.RegistryOut;
@@ -10,7 +9,6 @@ import com.playko.parkingservice.service.IParkingService;
 import com.playko.parkingservice.service.IRegistryEntryService;
 import com.playko.parkingservice.service.IRegistryOutService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -99,7 +97,7 @@ public class PartnerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
     })
-    @GetMapping("/getTopVehicles")
+    @GetMapping("/get-top-vehicles")
     public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
         return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
     }
@@ -108,7 +106,7 @@ public class PartnerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
     })
-    @GetMapping("/getTopVehiclesInParking/{id}")
+    @GetMapping("/get-top-vehicles-in-parking/{id}")
     public ResponseEntity<List<VehicleRegistrations>> getTopVehiclesInParking(
             @PathVariable Long id) {
         List<VehicleRegistrations> topVehicles = registryEntryService.getTopVehiclesByRegistrationsInParking(id);
@@ -129,7 +127,7 @@ public class PartnerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Earnings for period", content = @Content)
     })
-    @GetMapping("/getEarningsForPeriod")
+    @GetMapping("/get-earnings-for-period")
     public ResponseEntity<Map<String, Double>> getEarningsForPeriod(
             @RequestParam("parkingId") Long parkingId) {
         return ResponseEntity.ok(parkingService.getEarningsForPeriod(parkingId));
@@ -139,7 +137,7 @@ public class PartnerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Plate found", content = @Content)
     })
-    @GetMapping("/searchPlate")
+    @GetMapping("/search-plate")
     public ResponseEntity<List<RegistryEntry>> searchParkedVehiclesByPlateNumber(
             @RequestParam String plateNumber) {
         return ResponseEntity.ok(registryEntryService.findParkedVehiclesByPlateNumber(plateNumber));

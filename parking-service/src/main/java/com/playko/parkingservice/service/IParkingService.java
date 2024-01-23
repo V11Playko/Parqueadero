@@ -1,6 +1,5 @@
 package com.playko.parkingservice.service;
 
-import com.playko.parkingservice.entities.HistoryMovement;
 import com.playko.parkingservice.entities.Parking;
 
 import java.util.List;

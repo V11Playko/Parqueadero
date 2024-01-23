@@ -1,7 +1,6 @@
 package com.playko.parkingservice.controller;
 
 import com.playko.parkingservice.configuration.Constants;
-import com.playko.parkingservice.entities.HistoryMovement;
 import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.VehicleRegistrations;
@@ -77,7 +76,7 @@ public class AdminController {
                                     array = @ArraySchema(schema = @Schema(implementation = Parking.class)))),
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PutMapping("/updateParking/{id}")
+    @PutMapping("/update-parking/{id}")
     public ResponseEntity<Map<String, String>> updateParking(@PathVariable("id") Long id,
                                                           @RequestBody Parking parking,
                                                           @RequestParam("emailAssignedPartner") String emailAssignedPartner) {
@@ -96,7 +95,7 @@ public class AdminController {
                                     array = @ArraySchema(schema = @Schema(implementation = Parking.class)))),
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @DeleteMapping("/deleteParking/{id}")
+    @DeleteMapping("/delete-parking/{id}")
     public ResponseEntity<Map<String, String>> deleteParkingById(@PathVariable Long id) {
         parkingService.deleteParking(id);
         return ResponseEntity.status(HttpStatus.OK)
@@ -120,7 +119,7 @@ public class AdminController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
     })
-    @GetMapping("/getTopVehicles")
+    @GetMapping("/get-top-vehicles")
     public ResponseEntity<List<VehicleRegistrations>> getTopVehicles() {
         return ResponseEntity.ok(registryEntryService.getTopVehiclesByRegistrations());
     }
@@ -129,7 +128,7 @@ public class AdminController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "List of top vehicles", content = @Content)
     })
-    @GetMapping("/getTopVehiclesInParking/{id}")
+    @GetMapping("/get-top-vehicles-in-parking/{id}")
     public ResponseEntity<List<VehicleRegistrations>> getTopVehiclesInParking(
             @PathVariable Long id) {
         List<VehicleRegistrations> topVehicles = registryEntryService.getTopVehiclesByRegistrationsInParking(id);
@@ -150,7 +149,7 @@ public class AdminController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Plate found", content = @Content)
     })
-    @GetMapping("/searchPlate")
+    @GetMapping("/search-plate")
     public ResponseEntity<List<RegistryEntry>> searchParkedVehiclesByPlateNumber(
             @RequestParam String plateNumber) {
         return ResponseEntity.ok(registryEntryService.findParkedVehiclesByPlateNumber(plateNumber));

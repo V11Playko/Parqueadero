@@ -1,6 +1,5 @@
 package com.playko.parkingservice.service;
 
-import com.playko.parkingservice.entities.Parking;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.VehicleRegistrations;
 
