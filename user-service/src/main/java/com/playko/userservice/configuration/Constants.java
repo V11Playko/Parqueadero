@@ -16,4 +16,5 @@ public class Constants {
     public static final String USER_CREATED_MESSAGE = "Usuario creado satisfactoriamente.";
     public static final String UNAUTHORIZED_MESSAGE = "No tienes permiso para acceder a este recurso.";
     public static final String NO_DATA_FOUND_MESSAGE = "Datos no encontrados";
+    public static final String USER_ALREADY_EXISTS_MESSAGE = "Ya existe un usuario con este correo.";
 }
