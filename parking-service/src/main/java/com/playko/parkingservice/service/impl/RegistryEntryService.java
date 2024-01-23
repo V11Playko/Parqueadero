@@ -83,6 +83,7 @@ public class RegistryEntryService implements IRegistryEntryService {
         registryEntry.setDateEntry(LocalDateTime.now());
         registryEntry.setIdParking(parkingId);
         registryEntry.setPlateNumber(plateNumberUpperCase);
+        registryEntry.setParkingName(parking.getName());
         registryEntryRepository.save(registryEntry);
     }
 

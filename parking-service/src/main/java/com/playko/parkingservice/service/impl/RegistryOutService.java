@@ -49,17 +49,21 @@ public class RegistryOutService implements IRegistryOutService {
             throw new PlateNotRegisteredException();
         }
 
+        String parkingName = matchingEntries.get(0).getParkingName();
+
         HistoryMovement historyMovement = new HistoryMovement();
         historyMovement.setPlateNumber(plateNumber);
         historyMovement.setDateEntry(matchingEntries.get(0).getDateEntry());
         historyMovement.setDateOut(LocalDateTime.now());
         historyMovement.setIdParking(parkingId);
+        historyMovement.setParkingName(parkingName);
 
         historyMovementRepository.save(historyMovement);
 
         registryEntryRepository.delete(matchingEntries.get(0));
 
         registryOut.setDateOut(LocalDateTime.now());
+        registryOut.setParkingName(parkingName);
         registryOutRepository.save(registryOut);
     }
 }

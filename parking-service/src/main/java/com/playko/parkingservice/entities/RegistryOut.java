@@ -35,4 +35,6 @@ public class RegistryOut implements Serializable {
     private LocalDateTime dateOut;
 
     private Long idParking;
+
+    private String parkingName;
 }
