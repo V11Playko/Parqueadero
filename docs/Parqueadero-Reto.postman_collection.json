@@ -39,7 +39,8 @@
 										"auth",
 										"login"
 									]
-								}
+								},
+								"description": "1. **Nombre y Descripción:**\n    \n    - **Nombre:** Login User\n        \n    - **Descripción:** Autentica a un usuario y genera un token JWT para su sesión.\n        \n2. **Método HTTP y Ruta:**\n    \n    - **Método:** POST\n        \n    - **Ruta:** `/login`\n        \n3. **Parámetros:**\n    \n    - jsonCopy code{ \"email\": \"string\", \"password\": \"string\"}\n        \n        - **Descripción:** Información de inicio de sesión del usuario.\n            \n4. **Respuestas:**\n    \n    - jsonCopy code{ \"token\": \"string\", \"username\": \"string\", \"roles\": \\[\"string\"\\]}\n        \n        - **Descripción:** Token JWT generado y detalles del usuario autenticado.\n            \n    - jsonCopy code{ \"error\": \"Unauthorized\", \"message\": \"Invalid credentials\"}\n        \n        - **Descripción:** Las credenciales proporcionadas no son válidas.\n            \n5. **Autenticación:**\n    \n    - **No se requiere autenticación para esta solicitud.**\n        \n6. **Notas Adicionales:**\n    \n    - Este endpoint utiliza el esquema de autenticación de nombre de usuario y contraseña para generar un token JWT."
 							},
 							"response": []
 						}
@@ -85,7 +86,8 @@
 										"admin",
 										"save-partner"
 									]
-								}
+								},
+								"description": "# Guardar socio administrador\n\nEsta solicitud realiza una operación de guardado para un socio administrador.\n\n### Parámetros de la Solicitud\n\n- `name` (cadena): Nombre del socio administrador.\n- `surname` (cadena): Apellido del socio administrador.\n- `phoneNumber` (cadena): Número de teléfono del socio administrador.\n- `email` (cadena): Correo electrónico del socio administrador.\n- `password` (cadena): Contraseña del socio administrador.\n    \n\n### Respuesta\n\n- Estado: 200\n- Cuerpo: Usuario creado satisfactoriamente."
 							},
 							"response": []
 						},
@@ -123,7 +125,8 @@
 											"value": "admin@mail.com"
 										}
 									]
-								}
+								},
+								"description": "# Obtener usuario por correo electrónico con token admin\n\nEsta solicitud realiza una consulta para obtener información de un usuario utilizando su dirección de correo electrónico como parámetro.\n\n## Parámetros de la solicitud\n\n- **email** (cadena): La dirección de correo electrónico del usuario del cual se desea obtener información.\n    \n\n## Respuesta\n\nLa solicitud devuelve un objeto JSON con la información del usuario, incluyendo su identificación, nombre, apellido, número de teléfono, dirección de correo electrónico, contraseña y rol asociado.\n\nEjemplo de respuesta exitosa:\n\n``` json\n{\n    \"id\": 0,\n    \"name\": \"\",\n    \"surname\": \"\",\n    \"phoneNumber\": \"\",\n    \"email\": \"\",\n    \"password\": \"\",\n    \"role\": {\n        \"id\": 0,\n        \"name\": \"\",\n        \"description\": \"\"\n    }\n}\n\n ```"
 							},
 							"response": []
 						}
@@ -148,7 +151,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/users/v1/partner/getUser?email=vega@gmail.com",
+									"raw": "http://localhost:8091/users/v1/partner/get-user?email=vega@gmail.com",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -158,7 +161,7 @@
 										"users",
 										"v1",
 										"partner",
-										"getUser"
+										"get-user"
 									],
 									"query": [
 										{
@@ -166,7 +169,8 @@
 											"value": "vega@gmail.com"
 										}
 									]
-								}
+								},
+								"description": "# Obtener usuario\n\nEste endpoint realiza una solicitud GET para obtener información de un usuario asociado a un socio.\n\n## Parámetros de solicitud\n\n- **email** (query): El correo electrónico del usuario del que se desea obtener información.\n    \n\n## Respuesta\n\nLa respuesta incluirá un estado 200 OK y contendrá la información del usuario, incluyendo su identificación, nombre, apellido, número de teléfono, correo electrónico, contraseña y rol asociado.\n\nEjemplo de respuesta:\n\n``` json\n{\n    \"id\": 0,\n    \"name\": \"\",\n    \"surname\": \"\",\n    \"phoneNumber\": \"\",\n    \"email\": \"\",\n    \"password\": \"\",\n    \"role\": {\n        \"id\": 0,\n        \"name\": \"\",\n        \"description\": \"\"\n    }\n}\n\n ```"
 							},
 							"response": []
 						}
@@ -216,7 +220,8 @@
 										"v1",
 										"save-parking"
 									]
-								}
+								},
+								"description": "# Guardar Estacionamiento\n\nEste endpoint se utiliza para guardar la información de un estacionamiento.\n\n## Payload\n\n- `name` (string, opcional): El nombre del estacionamiento.\n- `maximumCapacity` (number, opcional): La capacidad máxima de vehículos que puede albergar el estacionamiento.\n- `costPerHour` (number, opcional): El costo por hora de estacionamiento.\n- `emailAssignedPartner` (string, opcional): El correo electrónico del socio asignado al estacionamiento.\n    \n\n## Respuesta\n\n- Código de estado: 201\n- `message` (string): Estacionamiento creado satisfactoriamente."
 							},
 							"response": []
 						},
@@ -248,7 +253,8 @@
 										"parking",
 										"1"
 									]
-								}
+								},
+								"description": "# Obtener detalles del estacionamiento\n\nEste endpoint se utiliza para obtener los detalles de un estacionamiento específico identificado por su ID.\n\n## Parámetros de la solicitud\n\nId del parqueadero que quieres buscar\n\n## Respuesta\n\n- ID (number): El ID del estacionamiento.\n- Nombre (string): El nombre del estacionamiento.\n- Capacidad Máxima (number): La capacidad máxima de vehículos que el estacionamiento puede albergar.\n- Costo por Hora (string): El costo por hora de estacionamiento.\n- Email del Socio Asignado (string): El email del socio asignado al estacionamiento.\n    \n\n## Códigos de estado\n\n- 200: Se devuelve cuando la solicitud se completa con éxito."
 							},
 							"response": []
 						},
@@ -295,7 +301,8 @@
 											"value": "vega@gmail.com"
 										}
 									]
-								}
+								},
+								"description": "# Actualizar información del estacionamiento\n\nEl endpoint realiza una solicitud HTTP PUT para actualizar la información de un estacionamiento específico identificado por el ID proporcionado en la URL. Se puede asignar un correo electrónico de socio al estacionamiento utilizando el parámetro de consulta \"emailAssignedPartner\".\n\n## Parámetros de solicitud\n\n- ID (en la URL): El ID del estacionamiento que se va a actualizar.\n- emailAssignedPartner (en la consulta): El correo electrónico del socio asignado al estacionamiento.\n    \n\n### Cuerpo de la solicitud\n\nEl cuerpo de la solicitud debe estar en formato JSON y puede contener los siguientes parámetros:\n\n- name: El nombre del estacionamiento.\n- maximumCapacity: La capacidad máxima del estacionamiento.\n- costPerHour: El costo por hora del estacionamiento.\n    \n\n## Respuesta\n\n- Estado: 200\n- message: Estacionamiento actualizado satisfactoriamente."
 							},
 							"response": []
 						},
@@ -315,7 +322,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8092/admin/v1/delete-parking/3",
+									"raw": "http://localhost:8092/admin/v1/delete-parking/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -325,9 +332,10 @@
 										"admin",
 										"v1",
 										"delete-parking",
-										"3"
+										"4"
 									]
-								}
+								},
+								"description": "# Eliminar Estacionamiento\n\nEste endpoint se utiliza para eliminar un estacionamiento específico.\n\n## Request\n\n### HTTP Request Method\n\nDELETE\n\n### URL\n\n`http://localhost:8092/admin/v1/delete-parking/4`\n\n### Body\n\nEl cuerpo de la solicitud está vacío.\n\n## Response\n\n### Status\n\n200 OK\n\n### Body\n\n``` json\n{\n    \"message\": \"Estacionamiento eliminado satisfactoriamente\"\n}\n\n ```"
 							},
 							"response": []
 						},
@@ -364,7 +372,8 @@
 											"value": "1"
 										}
 									]
-								}
+								},
+								"description": "# Listar Vehículos Específicos de Estacionamiento\n\nEste endpoint realiza una solicitud GET para recuperar la lista de vehículos específicos de un estacionamiento en base al ID del estacionamiento proporcionado.\n\n## Parámetros de la Solicitud\n\n- `parkingId` (query): El ID del estacionamiento del cual se desea obtener la lista de vehículos específicos.\n    \n\n## Ejemplo de Solicitud\n\n``` http\nGET http://localhost:8092/admin/v1/list-specific-parking-vehicles?parkingId=1\n\n ```\n\n## Respuesta\n\nLa respuesta será un arreglo JSON con los siguientes campos:\n\n- `id` (number): El ID del vehículo.\n- `plateNumber` (string): El número de placa del vehículo.\n- `dateEntry` (string): La fecha de entrada del vehículo al estacionamiento.\n- `idParking` (number): El ID del estacionamiento al que pertenece el vehículo.\n    \n\n### Ejemplo de Respuesta\n\n``` json\n[\n    {\n        \"id\": 0,\n        \"plateNumber\": \"\",\n        \"dateEntry\": \"\",\n        \"idParking\": 0\n    }\n]\n\n ```"
 							},
 							"response": []
 						},
@@ -395,7 +404,8 @@
 										"v1",
 										"get-top-vehicles"
 									]
-								}
+								},
+								"description": "# Obtener los 10 vehículos que más veces han estado en todos los parqueaderos\n\nEsta solicitud GET se utiliza para obtener una lista de los vehículos más populares.\n\n## Parámetros de solicitud\n\nNo se requieren parámetros para esta solicitud.\n\n## Respuesta\n\nLa respuesta será un código de estado 200 con una matriz de objetos JSON. Cada objeto contiene la placa del vehículo y el recuento de registros.\n\nEjemplo de respuesta:\n\n```\n[\n    {\"plateNumber\":\"\",\"registrationCount\":0}\n]\n\n ```"
 							},
 							"response": []
 						},
@@ -415,7 +425,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8092/admin/v1/getTopVehiclesInParking/1",
+									"raw": "http://localhost:8092/admin/v1/get-top-vehicles-in-parking/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -424,10 +434,11 @@
 									"path": [
 										"admin",
 										"v1",
-										"getTopVehiclesInParking",
+										"get-top-vehicles-in-parking",
 										"1"
 									]
-								}
+								},
+								"description": "# Obtener Top 10 vehículos que más veces han estado en el parqueadero\n\nEste endpoint realiza una solicitud GET para obtener los vehículos principales en el estacionamiento con el ID proporcionado.\n\n## Parámetros de solicitud\n\n- ID (en la URL): 1\n    \n\n## Respuesta\n\nLa respuesta devolverá un código de estado 200 y una matriz de objetos que contienen la placa del vehículo y el recuento de registro.\n\nEjemplo de respuesta:\n\n``` json\n[\n    {\n        \"plateNumber\": \"\",\n        \"registrationCount\": 0\n    }\n]\n\n ```"
 							},
 							"response": []
 						},
@@ -459,7 +470,8 @@
 										"first-time-parkings",
 										"1"
 									]
-								}
+								},
+								"description": "# Obtener placas que estan por primera vez en el parqueadero\n\nEsta solicitud realiza una solicitud GET para obtener información sobre las placas de los vehiculos que estan en el parqueadero por primera vez.\n\n## Parámetros de Solicitud\n\nId del parqueadero.\n\n## Respuesta\n\nEl servidor responde con un estado 200 y devuelve una matriz con las placas de los vehiculos que estan en el parqueadero por primera vez ."
 							},
 							"response": []
 						},
@@ -496,7 +508,8 @@
 											"value": "H"
 										}
 									]
-								}
+								},
+								"description": "\n# Buscar placa\nEste endpoint realiza una solicitud GET para buscar información sobre un número de placa específico.\n\n## Parámetros de solicitud\n- `plateNumber`: El número de placa que se va a buscar.\n\n## Ejemplo de solicitud\n```\nGET http://localhost:8092/admin/v1/search-plate?plateNumber=H\n```\n\n## Respuesta\nEl servidor responde con un estado 200 y una matriz de objetos JSON que contienen la información de la placa buscada. Cada objeto tiene las siguientes propiedades:\n- `id`: El ID asociado a la placa.\n- `plateNumber`: El número de placa.\n- `dateEntry`: La fecha de entrada asociada a la placa.\n- `idParking`: El ID del estacionamiento asociado a la placa.\n\nEjemplo de respuesta:\n```\nStatus: 200\n\n[{\"id\":0,\"plateNumber\":\"\",\"dateEntry\":\"\",\"idParking\":0}]\n```\n"
 							},
 							"response": []
 						}
@@ -547,7 +560,8 @@
 											"value": "1"
 										}
 									]
-								}
+								},
+								"description": "# Guardar entrada de registro de vehiculo\n\nEsta solicitud realiza una operación de guardado para la entrada de registro de un vehiculo en el sistema.\n\n## Parámetros de solicitud\n\n- **parkingId** (query): El ID del estacionamiento al que pertenece la entrada de registro.\n    \n\n### Cuerpo de la solicitud\n\n- **plateNumber** (cadena): El número de placa asociado a la entrada de registro.\n    \n\n## Respuesta\n\nLa solicitud devuelve un código de estado 201 y un cuerpo de respuesta que incluye el ID de la entrada de registro creada.\n\n### Ejemplo de respuesta\n\n``` json\n{\n    \"id\": \"...\"\n}\n\n ```"
 							},
 							"response": []
 						},
@@ -587,7 +601,8 @@
 										"v1",
 										"save-registry-out"
 									]
-								}
+								},
+								"description": "\n# Guardar Registro de Salida\n\nEste endpoint se utiliza para guardar un registro de salida.\n\n## Request\n\nEl cuerpo de la solicitud debe estar en formato JSON y debe incluir los siguientes parámetros:\n\n- `idParking` (number): El ID del estacionamiento.\n- `plateNumber` (string): El número de placa.\n\n### Ejemplo\n\n```json\n{\n    \"idParking\": 0,\n    \"plateNumber\": \"\"\n}\n```\n\n## Response\n\nEl servidor responderá con el código de estado 201 y un cuerpo de respuesta en formato JSON que incluirá el siguiente parámetro:\n\n- `message` (string): Un mensaje relacionado con la operación realizada.\n\n### Ejemplo de respuesta\n\n```json\n{\n    \"message\": \"\"\n}\n```\n"
 							},
 							"response": []
 						},
@@ -630,7 +645,8 @@
 											"value": "vega@gmail.com"
 										}
 									]
-								}
+								},
+								"description": "\n# Obtener Estacionamientos Asociados\nEste endpoint se utiliza para obtener una lista de estacionamientos asociados a un socio mediante su dirección de correo electrónico.\n\n## Parámetros de la solicitud\n- `emailAssignedPartner` (query): La dirección de correo electrónico del socio para el cual se desean obtener los estacionamientos asociados.\n\n## Respuesta\nLa respuesta será un array de objetos JSON, donde cada objeto representa un estacionamiento asociado. Cada objeto contendrá las siguientes propiedades:\n- `id` (number): El ID del estacionamiento asociado.\n- `name` (string): El nombre del estacionamiento.\n- `maximumCapacity` (number): La capacidad máxima del estacionamiento.\n- `costPerHour` (string): El costo por hora del estacionamiento.\n- `emailAssignedPartner` (string): La dirección de correo electrónico del socio al que está asignado el estacionamiento.\n\nLa respuesta tendrá un estado 200 en caso de éxito.\n\n"
 							},
 							"response": []
 						},
@@ -667,7 +683,8 @@
 											"value": "1"
 										}
 									]
-								}
+								},
+								"description": "\n# Listar Vehículos\nEste endpoint realiza una solicitud GET para recuperar una lista de vehículos asociados a un id de estacionamiento específico.\n\n## Parámetros de la Solicitud\n- `parkingId` (query): El ID del estacionamiento del cual se desea recuperar la lista de vehículos.\n\n## Ejemplo\n```\nGET http://localhost:8092/partner/v1/list-vehicles?parkingId=1\n```\n\n## Respuesta\nLa respuesta será un arreglo JSON con objetos que contienen las siguientes propiedades:\n- `id` (number): El ID del vehículo.\n- `plateNumber` (string): El número de placa del vehículo.\n- `dateEntry` (string): La fecha de entrada del vehículo.\n- `idParking` (number): El ID del estacionamiento al que está asociado el vehículo.\n\n### Ejemplo de Respuesta\n```json\n[\n    {\n        \"id\": 0,\n        \"plateNumber\": \"\",\n        \"dateEntry\": \"\",\n        \"idParking\": 0\n    }\n]\n```\n\n## Códigos de Estado\n- 200: La solicitud se ha completado con éxito.\n\n"
 							},
 							"response": []
 						},
@@ -698,7 +715,8 @@
 										"v1",
 										"get-top-vehicles"
 									]
-								}
+								},
+								"description": "# Obtener los 10 vehículos que más veces han estado en todos los parqueaderos\n\nEste endpoint se utiliza para obtener una lista de los vehículos principales.\n\n## Parámetros de solicitud\n\nNo se requieren parámetros de solicitud para esta solicitud.\n\n## Respuesta\n\nLa respuesta devuelve un código de estado 200 y una matriz de objetos JSON que contienen información sobre los vehículos principales. Cada objeto tiene las siguientes propiedades:\n\n- `plateNumber`: El número de placa del vehículo.\n- `registrationCount`: El recuento de registros para el vehículo."
 							},
 							"response": []
 						},
@@ -730,7 +748,8 @@
 										"get-top-vehicles-in-parking",
 										"1"
 									]
-								}
+								},
+								"description": "# Obtener Top 10 vehículos que más veces han estado en el parqueadero\n\nEste endpoint realiza una solicitud GET para obtener los mejores vehículos en el estacionamiento con el identificador 1.\n\n## Parámetros de solicitud\n\nid del parqueadero\n\n## Respuesta\n\nLa respuesta devolverá un estado 200 con una matriz de objetos que contienen la placa del vehículo y el recuento de registro.\n\nEjemplo de respuesta:\n\n``` json\n[\n    {\n        \"plateNumber\": \"\",\n        \"registrationCount\": 0\n    }\n]\n\n ```"
 							},
 							"response": []
 						},
@@ -762,7 +781,8 @@
 										"first-time-parkings",
 										"2"
 									]
-								}
+								},
+								"description": "# Obtener placas que estan por primera vez en el parqueadero\n\nEsta solicitud obtiene información sobre los estacionamientos disponibles para la primera vez.\n\n## Parámetros de solicitud\n\nid del parqueadero\n\n## Respuesta\n\nLa solicitud devuelve un código de estado 200 con una matriz que contiene la información de los estacionamientos disponibles.\n\nEjemplo de respuesta:\n\n```\n[\"HV9801\"]\n\n ```"
 							},
 							"response": []
 						},
@@ -782,7 +802,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8092/partner/v1/getEarningsForPeriod?parkingId=3",
+									"raw": "http://localhost:8092/partner/v1/get-earnings-for-period?parkingId=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -791,15 +811,16 @@
 									"path": [
 										"partner",
 										"v1",
-										"getEarningsForPeriod"
+										"get-earnings-for-period"
 									],
 									"query": [
 										{
 											"key": "parkingId",
-											"value": "3"
+											"value": "1"
 										}
 									]
-								}
+								},
+								"description": "# Obtener ganancias por período\n\nEsta solicitud realiza una solicitud GET para obtener las ganancias por período para un socio en particular.\n\n## Parámetros de solicitud\n\n- `parkingId` (query): El ID del estacionamiento para el cual se desean obtener las ganancias.\n    \n\n## Respuesta 200\n\nLa ejecución de esta solicitud devolvió un estado 200 con la siguiente respuesta:\n\n``` json\n{\n    \"thisMonth: \": 114625.0,\n    \"thisWeek: \": 114292.0,\n    \"thisYear: \": 114625.0,\n    \"today: \": 42.0\n}\n\n ```"
 							},
 							"response": []
 						},
@@ -836,7 +857,8 @@
 											"value": "H"
 										}
 									]
-								}
+								},
+								"description": "# Buscar placa\n\nEste endpoint realiza una solicitud GET para buscar información sobre un número de placa específico.\n\n## Parámetros de la solicitud\n\n- `plateNumber` (cadena): El número de placa que se va a buscar.\n    \n\n## Respuesta\n\nLa solicitud devuelve un código de estado 200 y una matriz de objetos JSON que contienen la siguiente información:\n\n- `id` (número): El ID asociado al número de placa.\n- `plateNumber` (cadena): El número de placa encontrado.\n- `dateEntry` (cadena): La fecha de entrada asociada al número de placa.\n- `idParking` (número): El ID del estacionamiento asociado al número de placa."
 							},
 							"response": []
 						}
@@ -883,7 +905,8 @@
 								"v1",
 								"send-notification"
 							]
-						}
+						},
+						"description": "\n# Enviar notificación\n\nEsta solicitud realiza un envío de notificación a través de un método POST a la URL base http://localhost:8093/messaging/v1/send-notification.\n\n### Cuerpo de la Solicitud\nEl cuerpo de la solicitud debe estar en formato JSON y debe incluir los siguientes parámetros:\n- **email** (cadena): Correo electrónico al que se enviará la notificación.\n- **plate** (cadena): Placa relacionada con la notificación.\n- **message** (cadena): Mensaje de la notificación.\n- **parkingId** (número): Identificación de la ubicación de estacionamiento.\n\n### Respuesta\n- **Estado**: 201\n- **Mensaje**: Mensaje de confirmación de la notificación.\n\n"
 					},
 					"response": []
 				}

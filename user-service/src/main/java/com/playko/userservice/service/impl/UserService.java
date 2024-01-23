@@ -6,6 +6,7 @@ import com.playko.userservice.service.IAuthPasswordEncoderPort;
 import com.playko.userservice.service.IUserService;
 import com.playko.userservice.service.exceptions.NoDataFoundException;
 import com.playko.userservice.service.exceptions.UnauthorizedException;
+import com.playko.userservice.service.exceptions.UserAlreadyExistsException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,12 @@ public class UserService implements IUserService {
      * */
     @Override
     public void saveUser(User user) {
+        String email = user.getEmail();
+
+        if (userRepository.existsByEmail(email)) {
+            throw new UserAlreadyExistsException();
+        }
+
         user.setPassword(authPasswordEncoderPort.encodePassword(user.getPassword()));
         userRepository.save(user);
     }

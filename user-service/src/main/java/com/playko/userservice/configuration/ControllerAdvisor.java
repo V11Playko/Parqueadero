@@ -2,6 +2,7 @@ package com.playko.userservice.configuration;
 
 import com.playko.userservice.service.exceptions.NoDataFoundException;
 import com.playko.userservice.service.exceptions.UnauthorizedException;
+import com.playko.userservice.service.exceptions.UserAlreadyExistsException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Set;
 import static com.playko.userservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.playko.userservice.configuration.Constants.RESPONSE_MESSAGE_KEY;
 import static com.playko.userservice.configuration.Constants.UNAUTHORIZED_MESSAGE;
+import static com.playko.userservice.configuration.Constants.USER_ALREADY_EXISTS_MESSAGE;
 
 @ControllerAdvice
 public class ControllerAdvisor {
@@ -76,5 +78,12 @@ public class ControllerAdvisor {
             UnauthorizedException unauthorizedException) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, UNAUTHORIZED_MESSAGE));
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> userAlreadyExistsException(
+            UserAlreadyExistsException userAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, USER_ALREADY_EXISTS_MESSAGE));
     }
 }

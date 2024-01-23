@@ -35,4 +35,6 @@ public class RegistryEntry implements Serializable {
     private LocalDateTime dateEntry;
 
     private Long idParking;
+
+    private String parkingName;
 }

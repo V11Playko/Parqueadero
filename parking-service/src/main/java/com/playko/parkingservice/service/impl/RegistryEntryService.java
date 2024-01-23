@@ -83,6 +83,7 @@ public class RegistryEntryService implements IRegistryEntryService {
         registryEntry.setDateEntry(LocalDateTime.now());
         registryEntry.setIdParking(parkingId);
         registryEntry.setPlateNumber(plateNumberUpperCase);
+        registryEntry.setParkingName(parking.getName());
         registryEntryRepository.save(registryEntry);
     }
 
@@ -117,12 +118,15 @@ public class RegistryEntryService implements IRegistryEntryService {
         Optional<Parking> parking = parkingRepository.findById(parkingId);
         List<RegistryEntry> listVehicle = registryEntryRepository.findByIdParking(parkingId);
 
-        Optional<User> userclient = userClient.getUser(parking.get().getEmailAssignedPartner());
+        try {
+            Optional<User> userclient = userClient.getUser(parking.get().getEmailAssignedPartner());
 
-        if (!parking.get().getEmailAssignedPartner().equals(userclient.get().getEmail())
-                && !parking.get().getEmailAssignedPartner().equals("admin@mail.com")) {
-            throw new InvalidAssignedPartnerException();
-        }
+            if (!parking.get().getEmailAssignedPartner().equals(userclient.get().getEmail())
+                    && !parking.get().getEmailAssignedPartner().equals("admin@mail.com")) {
+                throw new InvalidAssignedPartnerException();
+            }
+        } catch (RuntimeException e) {throw new ParkingNotFoundException();}
+
         if (listVehicle.isEmpty()) {
             throw new NoDataFoundException();
         }
