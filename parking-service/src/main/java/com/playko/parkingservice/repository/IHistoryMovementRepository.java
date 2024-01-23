@@ -28,4 +28,6 @@ public interface IHistoryMovementRepository extends JpaRepository<HistoryMovemen
     @Query("SELECT movement.plateNumber FROM HistoryMovement movement WHERE movement.idParking = :id " +
             "GROUP BY movement.plateNumber HAVING COUNT(movement.plateNumber) = 1")
     List<String> findFirstTimeParkings(@Param("id") Long id);
+
+    List<HistoryMovement> findByIdParking(Long parkingId);
 }

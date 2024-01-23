@@ -136,6 +136,10 @@ public class AdminController {
         return ResponseEntity.ok(topVehicles);
     }
 
+    @Operation(summary = "Get vehicles in parking lot for the first time")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Vehicles in parking lot for the first time", content = @Content)
+    })
     @GetMapping("/first-time-parkings/{id}")
     public ResponseEntity<List<String>> getFirstTimeParkings(@PathVariable Long id) {
         List<String> firstTimeParkings = parkingService.getFirstTimeParkings(id);

@@ -6,6 +6,7 @@ import com.playko.parkingservice.service.exceptions.MaximumCapacityIsRequired;
 import com.playko.parkingservice.service.exceptions.NameIsRequired;
 import com.playko.parkingservice.service.exceptions.NoDataFoundException;
 import com.playko.parkingservice.service.exceptions.ParkingFullException;
+import com.playko.parkingservice.service.exceptions.ParkingHasNoMovements;
 import com.playko.parkingservice.service.exceptions.ParkingNotFoundException;
 import com.playko.parkingservice.service.exceptions.PlateAlreadyExistsException;
 import com.playko.parkingservice.service.exceptions.PlateNotRegisteredException;
@@ -31,6 +32,7 @@ import static com.playko.parkingservice.configuration.Constants.MAXIMUMCAPACITY_
 import static com.playko.parkingservice.configuration.Constants.NAME_IS_REQUIRED_MESSAGE;
 import static com.playko.parkingservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.playko.parkingservice.configuration.Constants.PARKING_FULL_MESSAGE;
+import static com.playko.parkingservice.configuration.Constants.PARKING_HAS_NO_MOVEMENTS;
 import static com.playko.parkingservice.configuration.Constants.PARKING_NOT_FOUND;
 import static com.playko.parkingservice.configuration.Constants.PLATE_ALREADY_EXISTS_MESSAGE;
 import static com.playko.parkingservice.configuration.Constants.PLATE_NOT_REGISTERED_MESSAGE;
@@ -148,5 +150,12 @@ public class ControllerAdvisor {
             ParkingNotFoundException on) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PARKING_NOT_FOUND));
+    }
+
+    @ExceptionHandler(ParkingHasNoMovements.class)
+    public ResponseEntity<Map<String, String>> parkingHasNoMovements(
+            ParkingHasNoMovements parkingHasNoMovements) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PARKING_HAS_NO_MOVEMENTS));
     }
 }

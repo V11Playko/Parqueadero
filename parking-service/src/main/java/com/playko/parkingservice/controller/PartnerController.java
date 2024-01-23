@@ -115,9 +115,23 @@ public class PartnerController {
         return ResponseEntity.ok(topVehicles);
     }
 
+    @Operation(summary = "Get vehicles in parking lot for the first time")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Vehicles in parking lot for the first time", content = @Content)
+    })
     @GetMapping("/first-time-parkings/{id}")
     public ResponseEntity<List<String>> getFirstTimeParkings(@PathVariable Long id) {
         List<String> firstTimeParkings = parkingService.getFirstTimeParkings(id);
         return new ResponseEntity<>(firstTimeParkings, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Get earnings for period")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Earnings for period", content = @Content)
+    })
+    @GetMapping("/getEarningsForPeriod")
+    public ResponseEntity<Map<String, Double>> getEarningsForPeriod(
+            @RequestParam("parkingId") Long parkingId) {
+        return ResponseEntity.ok(parkingService.getEarningsForPeriod(parkingId));
     }
 }
