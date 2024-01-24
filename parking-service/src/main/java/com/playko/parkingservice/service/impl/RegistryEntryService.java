@@ -5,10 +5,14 @@ import com.playko.parkingservice.client.IUserClient;
 import com.playko.parkingservice.client.dto.SendNotification;
 import com.playko.parkingservice.client.dto.User;
 import com.playko.parkingservice.configuration.Constants;
+import com.playko.parkingservice.entities.Cars;
 import com.playko.parkingservice.entities.Parking;
+import com.playko.parkingservice.entities.ParkingCars;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.VehicleRegistrations;
+import com.playko.parkingservice.repository.ICarsRepository;
 import com.playko.parkingservice.repository.IHistoryMovementRepository;
+import com.playko.parkingservice.repository.IParkingCarsRepository;
 import com.playko.parkingservice.repository.IParkingRepository;
 import com.playko.parkingservice.repository.IRegistryEntryRepository;
 import com.playko.parkingservice.service.IRegistryEntryService;
@@ -33,13 +37,17 @@ public class RegistryEntryService implements IRegistryEntryService {
     private final IUserClient userClient;
     private final IMessagingClient messagingClient;
     private final IHistoryMovementRepository historyMovementRepository;
+    private final ICarsRepository carsRepository;
+    private final IParkingCarsRepository parkingCarsRepository;
 
-    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient, IHistoryMovementRepository historyMovementRepository) {
+    public RegistryEntryService(IRegistryEntryRepository registryEntryRepository, IParkingRepository parkingRepository, IUserClient userClient, IMessagingClient messagingClient, IHistoryMovementRepository historyMovementRepository, ICarsRepository carsRepository, IParkingCarsRepository parkingCarsRepository) {
         this.registryEntryRepository = registryEntryRepository;
         this.parkingRepository = parkingRepository;
         this.userClient = userClient;
         this.messagingClient = messagingClient;
         this.historyMovementRepository = historyMovementRepository;
+        this.carsRepository = carsRepository;
+        this.parkingCarsRepository = parkingCarsRepository;
     }
 
 
@@ -71,6 +79,15 @@ public class RegistryEntryService implements IRegistryEntryService {
         if (registryEntryRepository.countByIdParking(parkingId) >= maxCapacity) {
             throw new ParkingFullException();
         }
+
+        Cars car = new Cars();
+        car.setPlate(plateNumberUpperCase);
+        carsRepository.save(car);
+
+        ParkingCars parkingCars = new ParkingCars();
+        parkingCars.setCar(car);
+        parkingCars.setParking(parking);
+        parkingCarsRepository.save(parkingCars);
 
         SendNotification notification = new SendNotification();
         notification.setEmail(parking.getEmailAssignedPartner());
