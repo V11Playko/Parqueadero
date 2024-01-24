@@ -32,6 +32,7 @@ Para instalar y configurar la aplicación en un entorno local, sigue estos pasos
 8. Consulta la documentación de la API de Parking-Service para obtener más detalles sobre los endpoints disponibles en `http://localhost:8092/swagger-ui/index.html#`.
 9. Consulta la documentación de la API de Messaging-Service para obtener más detalles sobre los endpoints disponibles en `http://localhost:8093/swagger-ui/index.html#`.
 10. Tambien puedes ver y exportar la [colección de postman.](docs/Parqueadero-Reto.postman_collection.json)
+11. Tambien puedes ver el modelo entidad-relación como [PNG](docs/parqueadero.png) o descargar y usarlo en [draw.io](docs/parqueadero.drawio)
 
 ## Licencia ##
 
