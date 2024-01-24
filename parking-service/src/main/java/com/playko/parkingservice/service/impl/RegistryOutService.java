@@ -4,6 +4,7 @@ import com.playko.parkingservice.entities.HistoryMovement;
 import com.playko.parkingservice.entities.RegistryEntry;
 import com.playko.parkingservice.entities.RegistryOut;
 import com.playko.parkingservice.repository.IHistoryMovementRepository;
+import com.playko.parkingservice.repository.IParkingCarsRepository;
 import com.playko.parkingservice.repository.IRegistryEntryRepository;
 import com.playko.parkingservice.repository.IRegistryOutRepository;
 import com.playko.parkingservice.service.IRegistryOutService;
@@ -20,11 +21,13 @@ public class RegistryOutService implements IRegistryOutService {
     private final IRegistryEntryRepository registryEntryRepository;
     private final IRegistryOutRepository registryOutRepository;
     private final IHistoryMovementRepository historyMovementRepository;
+    private final IParkingCarsRepository parkingCarsRepository;
 
-    public RegistryOutService(IRegistryEntryRepository registryEntryRepository, IRegistryOutRepository registryOutRepository, IHistoryMovementRepository historyMovementRepository) {
+    public RegistryOutService(IRegistryEntryRepository registryEntryRepository, IRegistryOutRepository registryOutRepository, IHistoryMovementRepository historyMovementRepository, IParkingCarsRepository parkingCarsRepository) {
         this.registryEntryRepository = registryEntryRepository;
         this.registryOutRepository = registryOutRepository;
         this.historyMovementRepository = historyMovementRepository;
+        this.parkingCarsRepository = parkingCarsRepository;
     }
 
     /**
@@ -50,6 +53,8 @@ public class RegistryOutService implements IRegistryOutService {
         }
 
         String parkingName = matchingEntries.get(0).getParkingName();
+
+        parkingCarsRepository.deleteByCarPlateAndParkingId(plateNumber, parkingId);
 
         HistoryMovement historyMovement = new HistoryMovement();
         historyMovement.setPlateNumber(plateNumber);
